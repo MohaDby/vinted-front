@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 60%;
+  margin: auto;
+}
+
+/* header */
+
+header {
+  height: 120px;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+header img {
+  width: 100px;
+}
+
+/* home main */
+.Hero img {
+  width: 100%;
+  height: 455px;
+  object-fit: cover;
+}
+
+.home-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.card {
+  cursor: pointer;
+  padding: 0 5px 15px;
+  width: 235px;
+  margin-bottom: 30px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user img {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.user span {
+  color: #999;
+  font-size: 12px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+.details span:first-child {
+  font-size: 14px;
+}
+
+.details span:not(:first-child) {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Main offer */
+
+.mainOffer {
+  background-color: #ebedee;
+  height: calc(100vh - 140px);
+}
+
+.mainOffer .container {
+  width: 1280px;
+}
+
+.offer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.offer img {
+  height: 600px;
+  object-fit: cover;
+  margin-top: 40px;
+}
+
+.offer-info {
+  width: 320px;
+  background-color: white;
+  padding: 40px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.offer-info img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+}
