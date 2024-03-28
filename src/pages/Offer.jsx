@@ -1,20 +1,41 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Offer = () => {
   const { id } = useParams();
-  let { state } = useLocation();
 
-  console.log(state);
-  return (
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
+        );
+
+        setData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  return isLoading ? (
+    <p>En cours de chargement...</p>
+  ) : (
     <main className="mainOffer">
       <div className="container">
         <div className="offer">
-          <img src={state.product_image.url} alt="" />
+          <img src={data.product_image.url} alt="" />
           <div className="offer-info">
             <div>
-              <h2>{state.product_price}</h2>
+              <h2>{data.product_price}</h2>
               <ul>
-                {state.product_details.map((elem) => {
+                {data.product_details.map((elem) => {
                   return (
                     <li>
                       <span>{Object.keys(elem)}</span>
@@ -25,11 +46,11 @@ const Offer = () => {
               </ul>
             </div>
             <div>
-              <h2>{state.product_name}</h2>
-              <p>{state.product_description}</p>
+              <h2>{data.product_name}</h2>
+              <p>{data.product_description}</p>
               <div className="offer-user">
-                <img src={state.owner.account.avatar.url} alt="" />
-                <span>{state.owner.account.username}</span>
+                <img src={data.owner.account.avatar.url} alt="" />
+                <span>{data.owner.account.username}</span>
               </div>
             </div>
             <button>Acheter</button>
@@ -39,7 +60,5 @@ const Offer = () => {
     </main>
   );
 };
-
-//faire une condition que si id n'existe oas dans l'api montrer une page blanche
 
 export default Offer;

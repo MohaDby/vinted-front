@@ -7,15 +7,18 @@ const Header = ({ logo }) => {
         <Link to="/">
           <img src={logo} alt="" />
         </Link>
-
         <div>
-          <input type="text" placeholder="Recherche des articles" />
+          <input
+            className="searchBar"
+            type="text"
+            placeholder="Recherche des articles"
+          />
         </div>
         <div>
-          <button>S'inscrire</button>
-          <button>Se connecter</button>
+          <button className="signup-button">S'inscrire</button>
+          <button className="login-button">Se connecter</button>
         </div>
-        <button>Vends tes articles</button>
+        <button className="sell-button">Vends tes articles</button>
       </div>
     </header>
   );
