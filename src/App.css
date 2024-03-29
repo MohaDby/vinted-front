@@ -36,6 +36,7 @@ header button {
   font-size: 12px;
   border-radius: 5px;
   border: 1px solid #2cb1ba;
+  cursor: pointer;
 }
 
 header .signup-button,
@@ -146,4 +147,20 @@ header img {
   object-fit: cover;
   height: 50px;
   width: 50px;
+}
+
+/* Main signup */
+
+.main-signup .container {
+  height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.main-signup .form {
+  margin-top: 50px;
+  width: 275px;
+  display: flex;
+  flex-direction: column;
 }

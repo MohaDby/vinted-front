@@ -14,7 +14,6 @@ const Offer = () => {
         const response = await axios.get(
           `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
         );
-
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -35,9 +34,9 @@ const Offer = () => {
             <div>
               <h2>{data.product_price}</h2>
               <ul>
-                {data.product_details.map((elem) => {
+                {data.product_details.map((elem, index) => {
                   return (
-                    <li>
+                    <li key={index}>
                       <span>{Object.keys(elem)}</span>
                       <span>{Object.values(elem)}</span>
                     </li>

@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const Home = ({ heroImg }) => {
+  console.log(Cookies.get("userToken"));
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,8 +30,8 @@ const Home = ({ heroImg }) => {
           <div className="home-cards">
             {data.offers.map((offers) => {
               return (
-                <Link to={`/offer/${offers._id}`}>
-                  <div key={offers._id} className="card">
+                <Link key={offers._id} to={`/offer/${offers._id}`}>
+                  <div className="card">
                     <div className="user">
                       <img src={offers.owner.account.avatar?.url} alt="" />
                       <span>{offers.owner.account.username}</span>
@@ -37,11 +39,19 @@ const Home = ({ heroImg }) => {
                     <img src={offers.product_image.secure_url} alt="" />
                     <div className="details">
                       <span>{offers.product_price} €</span>
-                      {offers.product_details.map((detail) => {
-                        return detail.TAILLE && <span>{detail.TAILLE}</span>;
+                      {offers.product_details.map((detail, index) => {
+                        return (
+                          detail.TAILLE && (
+                            <span key={index}>{detail.TAILLE}</span>
+                          )
+                        );
                       })}
-                      {offers.product_details.map((detail) => {
-                        return detail.MARQUE && <span>{detail.MARQUE}</span>;
+                      {offers.product_details.map((detail, index) => {
+                        return (
+                          detail.MARQUE && (
+                            <span key={index}>{detail.MARQUE}</span>
+                          )
+                        );
                       })}
                     </div>
                   </div>
@@ -57,4 +67,4 @@ const Home = ({ heroImg }) => {
 
 export default Home;
 
-// {console.log(offers.product_details[0])}
+//<p>{offer.product_details[1].TAILLE}</p> <p>{offer.product_details[0].MARQUE}</p>
