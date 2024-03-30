@@ -1,15 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
-const Signup = () => {
+const Signup = ({ handleToken }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
-  const [token, setToken] = useState("");
 
   const handleUserChange = (event) => {
     const value = event.target.value;
@@ -46,11 +44,11 @@ const Signup = () => {
         userData
       );
 
-      Cookies.set("userToken", response.data.token);
-      setToken(response.data.token);
-      navigate("/");
+      console.log(response.data);
 
-      console.log(token);
+      handleToken(response.data.token);
+
+      navigate("/");
     } catch (error) {
       console.log(error.response);
     }
@@ -71,7 +69,7 @@ const Signup = () => {
             />
             <input
               placeholder="Email"
-              type="text"
+              type="email"
               value={email}
               onChange={handleEmailChange}
               required
@@ -101,7 +99,7 @@ const Signup = () => {
             </div>
             <input type="submit" value="S'inscrire" />
           </form>
-          <Link>
+          <Link to={"/login"}>
             <p>Tu as déja un compte ? Connecte-toi !</p>
           </Link>
         </div>

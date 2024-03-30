@@ -1,0 +1,42 @@
+.mainOffer {
+  background-color: #ebedee;
+  height: calc(100vh - 140px);
+}
+
+.mainOffer .container {
+  width: 1280px;
+}
+
+.offer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.offer img {
+  height: 600px;
+  object-fit: cover;
+  margin-top: 40px;
+}
+
+.offer-info {
+  width: 320px;
+  background-color: white;
+  padding: 40px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.offer-info img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+}
+
+.pages-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

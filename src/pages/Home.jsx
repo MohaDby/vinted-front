@@ -1,24 +1,27 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+
 import axios from "axios";
 
 const Home = ({ heroImg }) => {
-  console.log(Cookies.get("userToken"));
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        "https://lereacteur-vinted-api.herokuapp.com/offers"
+        `https://lereacteur-vinted-api.herokuapp.com/offers?page=${page}&limit=8`
       );
-      setData(response.data);
+      setData(response.data.offers);
+      console.log(response.data);
+      setTotalPages(5);
       setIsLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   return isLoading ? (
     <p>En cours de chargement....</p>
@@ -28,7 +31,7 @@ const Home = ({ heroImg }) => {
         <img src={heroImg} alt="" />
         <div className="container">
           <div className="home-cards">
-            {data.offers.map((offers) => {
+            {data.map((offers) => {
               return (
                 <Link key={offers._id} to={`/offer/${offers._id}`}>
                   <div className="card">
@@ -39,25 +42,27 @@ const Home = ({ heroImg }) => {
                     <img src={offers.product_image.secure_url} alt="" />
                     <div className="details">
                       <span>{offers.product_price} €</span>
-                      {offers.product_details.map((detail, index) => {
-                        return (
-                          detail.TAILLE && (
-                            <span key={index}>{detail.TAILLE}</span>
-                          )
-                        );
-                      })}
-                      {offers.product_details.map((detail, index) => {
-                        return (
-                          detail.MARQUE && (
-                            <span key={index}>{detail.MARQUE}</span>
-                          )
-                        );
-                      })}
+                      <p>{offers.product_details[1].TAILLE}</p>
+                      <p>{offers.product_details[0].MARQUE}</p>
                     </div>
                   </div>
                 </Link>
               );
             })}
+          </div>
+          <div className="pages-buttons">
+            <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+              Page précédente
+            </button>
+            <span>
+              Page {page} sur {totalPages}
+            </span>
+            <button
+              onClick={() => setPage(page + 1)}
+              disabled={page === totalPages}
+            >
+              Page suivante
+            </button>
           </div>
         </div>
       </div>
@@ -66,5 +71,3 @@ const Home = ({ heroImg }) => {
 };
 
 export default Home;
-
-//<p>{offer.product_details[1].TAILLE}</p> <p>{offer.product_details[0].MARQUE}</p>

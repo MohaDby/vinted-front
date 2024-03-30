@@ -48,7 +48,7 @@ const Offer = () => {
               <h2>{data.product_name}</h2>
               <p>{data.product_description}</p>
               <div className="offer-user">
-                <img src={data.owner.account.avatar.url} alt="" />
+                <img src={data.owner.account.avatar?.url} alt="" />
                 <span>{data.owner.account.username}</span>
               </div>
             </div>

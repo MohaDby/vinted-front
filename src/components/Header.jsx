@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
-import Cookies from "js-cookie";
 
-const Header = ({ logo }) => {
-  const [token, setToken] = useState("");
-  console.log(Cookies.get());
-
-  console.log(token);
+const Header = ({ logo, token, handleToken }) => {
   return (
     <header>
       <div className="container">
@@ -20,12 +14,26 @@ const Header = ({ logo }) => {
             placeholder="Recherche des articles"
           />
         </div>
-        <Link to={"/signup"}>
-          <button className="signup-button">S'inscrire</button>
-        </Link>
-        <div>
-          <button className="login-button">Se connecter</button>
-        </div>
+        {token ? (
+          <button
+            className="logout-button"
+            onClick={() => {
+              handleToken(null);
+            }}
+          >
+            Se déconnecter
+          </button>
+        ) : (
+          <div>
+            <Link to={"/signup"}>
+              <button className="signup-button">S'inscrire</button>
+            </Link>
+            <Link to={"/login"}>
+              <button className="login-button">Se connecter</button>
+            </Link>
+          </div>
+        )}
+
         <button className="sell-button">Vends tes articles</button>
       </div>
     </header>

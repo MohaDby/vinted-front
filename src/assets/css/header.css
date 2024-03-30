@@ -1,0 +1,54 @@
+header {
+  height: 120px;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+header .searchBar {
+  height: 35px;
+  width: 600px;
+  background-color: #f5f6f7;
+  border: none;
+  padding: 15px;
+  outline: none;
+  font-size: 15px;
+}
+
+header button {
+  height: 30px;
+  width: 115px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 1px solid #2cb1ba;
+  cursor: pointer;
+}
+
+header .signup-button,
+header .login-button {
+  background-color: white;
+  color: #2cb1ba;
+}
+
+header .signup-button {
+  margin-right: 20px;
+}
+
+header .sell-button {
+  background-color: #2cb1ba;
+  color: white;
+}
+
+header .logout-button {
+  background-color: #c2175b;
+  color: white;
+  border: #c2175b;
+}
+
+header img {
+  width: 100px;
+}
