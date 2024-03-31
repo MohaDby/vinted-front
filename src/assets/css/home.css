@@ -1,7 +1,42 @@
-.Hero img {
+.home a {
+  text-decoration: none;
+  color: black;
+}
+
+.hero {
   width: 100%;
-  height: 455px;
+  height: 65vh;
+  position: relative;
+}
+
+.hero-div {
+  background-color: white;
+  position: absolute;
+  top: 75px;
+  left: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 30px;
+  height: 230px;
+  width: 360px;
+}
+
+.hero-div p {
+  font-size: 30px;
+}
+.hero img:first-child {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+.hero-tear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 80px;
 }
 
 .home-cards {
@@ -15,6 +50,13 @@
   padding: 0 5px 15px;
   width: 235px;
   margin-bottom: 30px;
+  margin-right: 15px;
+}
+
+.card img {
+  object-fit: cover;
+  width: 235px;
+  height: 365px;
 }
 
 .user {
@@ -44,12 +86,11 @@
   font-size: 14px;
 }
 
-.details span:not(:first-child) {
+.details p {
+  margin-top: px;
   font-size: 12px;
   color: #999;
 }
-
-/* Main offer */
 
 .mainOffer {
   background-color: #ebedee;

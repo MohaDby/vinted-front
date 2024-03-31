@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import tear from "../assets/img/tear.88.svg";
 
 import axios from "axios";
 
@@ -11,13 +12,17 @@ const Home = ({ heroImg }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/offers?page=${page}&limit=8`
-      );
-      setData(response.data.offers);
-      console.log(response.data);
-      setTotalPages(5);
-      setIsLoading(false);
+      try {
+        const response = await axios.get(
+          `https://lereacteur-vinted-api.herokuapp.com/offers?page=${page}&limit=8`
+        );
+        setData(response.data.offers);
+
+        setTotalPages(Math.ceil(response.data.count / 8));
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.response);
+      }
     };
 
     fetchData();
@@ -27,8 +32,15 @@ const Home = ({ heroImg }) => {
     <p>En cours de chargement....</p>
   ) : (
     <main>
-      <div className="Hero">
-        <img src={heroImg} alt="" />
+      <div className="home">
+        <div className="hero">
+          <img src={heroImg} alt="hero-img" />
+          <img src={tear} alt="" className="hero-tear" />
+          <div className="hero-div">
+            <p>Prêts à faire du tri dans vos placards ?</p>
+            <button>Commencer a vendre</button>
+          </div>
+        </div>
         <div className="container">
           <div className="home-cards">
             {data.map((offers) => {

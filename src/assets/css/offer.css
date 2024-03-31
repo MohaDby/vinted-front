@@ -1,9 +1,9 @@
-.mainOffer {
+.main-offer {
   background-color: #ebedee;
-  height: calc(100vh - 140px);
+  height: calc(100vh - 120px);
 }
 
-.mainOffer .container {
+.main-offer .container {
   width: 1280px;
 }
 

@@ -26,7 +26,7 @@ const Offer = () => {
   return isLoading ? (
     <p>En cours de chargement...</p>
   ) : (
-    <main className="mainOffer">
+    <main className="main-offer">
       <div className="container">
         <div className="offer">
           <img src={data.product_image.url} alt="" />
