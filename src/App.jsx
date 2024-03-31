@@ -8,12 +8,14 @@ import heroImg from "./assets/img/heroImg.jpg";
 
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
 
 import Header from "./components/Header";
+import LoginModal from "./components/LoginModal";
+import SignupModal from "./components/SignupModal";
 
 function App() {
+  const [loginModal, setLoginModal] = useState(false);
+  const [signupModal, setSignupModal] = useState(false);
   const [token, setToken] = useState(null);
 
   const handleToken = (token) => {
@@ -25,20 +27,37 @@ function App() {
       setToken(null);
     }
   };
-  console.log(token);
+
   return (
     <>
       <Router>
-        <Header logo={logo} token={token} handleToken={handleToken} />
+        <Header
+          logo={logo}
+          token={token}
+          handleToken={handleToken}
+          loginModal={loginModal}
+          setLoginModal={setLoginModal}
+          signupModal={signupModal}
+          setSignupModal={setSignupModal}
+        />
         <Routes>
           <Route path="/" element={<Home heroImg={heroImg} />} />
           <Route path="/offer/:id" element={<Offer />} />
-          <Route
-            path="/signup"
-            element={<Signup handleToken={handleToken} />}
-          />
-          <Route path="/login" element={<Login handleToken={handleToken} />} />
         </Routes>
+        {signupModal && (
+          <SignupModal
+            setSignupModal={setSignupModal}
+            setLoginModal={setLoginModal}
+            handleToken={handleToken}
+          />
+        )}
+        {loginModal && (
+          <LoginModal
+            setLoginModal={setLoginModal}
+            setSignupModal={setSignupModal}
+            handleToken={handleToken}
+          />
+        )}
       </Router>
     </>
   );

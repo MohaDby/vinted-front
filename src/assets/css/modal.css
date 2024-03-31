@@ -1,0 +1,107 @@
+.modal-root {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.modal {
+  align-items: center;
+  background-color: white;
+  width: 375px;
+  border-radius: 3px;
+  padding: 25px;
+}
+
+.close-button {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.close-button button {
+  border: none;
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-form,
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup-submit,
+.login-submit {
+  background-color: #2cb1ba;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  height: 45px;
+  outline: none;
+}
+
+.signup-form h1,
+.login-form h1 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+form input {
+  border: none;
+  outline: none;
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: rgb(117 117 117);
+  border-bottom: 1px solid rgb(23 23 23 / 8%);
+  padding: 5px;
+  width: 100%;
+}
+
+.checkbox {
+  margin-bottom: 20px;
+}
+
+.checkbox > div {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox span {
+  color: #666;
+}
+
+.checkbox > span {
+  font-size: 12px;
+}
+
+.checkbox-button {
+  border: 1px solid;
+  height: 24px;
+  width: 24px;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.redirection-modal {
+  cursor: pointer;
+  color: #2cb1ba;
+  font-size: 12px;
+}

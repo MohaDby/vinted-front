@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
-const Header = ({ logo, token, handleToken }) => {
+const Header = ({
+  logo,
+  token,
+  handleToken,
+  loginModal,
+  setLoginModal,
+  signupModal,
+  setSignupModal,
+}) => {
   return (
     <header>
       <div className="container">
@@ -25,12 +33,23 @@ const Header = ({ logo, token, handleToken }) => {
           </button>
         ) : (
           <div>
-            <Link to={"/signup"}>
-              <button className="signup-button">S'inscrire</button>
-            </Link>
-            <Link to={"/login"}>
-              <button className="login-button">Se connecter</button>
-            </Link>
+            <button
+              className="signup-button"
+              onClick={() => {
+                setSignupModal(!signupModal);
+              }}
+            >
+              S'inscrire
+            </button>
+
+            <button
+              className="login-button"
+              onClick={() => {
+                setLoginModal(!loginModal);
+              }}
+            >
+              Se connecter
+            </button>
           </div>
         )}
 
