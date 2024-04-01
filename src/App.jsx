@@ -8,6 +8,7 @@ import heroImg from "./assets/img/heroImg.jpg";
 
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
+import Publish from "./pages/Publish";
 
 import Header from "./components/Header";
 import LoginModal from "./components/LoginModal";
@@ -16,7 +17,7 @@ import SignupModal from "./components/SignupModal";
 function App() {
   const [loginModal, setLoginModal] = useState(false);
   const [signupModal, setSignupModal] = useState(false);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(Cookies.get("userToken") || null);
 
   const handleToken = (token) => {
     if (token) {
@@ -41,8 +42,28 @@ function App() {
           setSignupModal={setSignupModal}
         />
         <Routes>
-          <Route path="/" element={<Home heroImg={heroImg} />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                heroImg={heroImg}
+                token={token}
+                setLoginModal={setLoginModal}
+              />
+            }
+          />
           <Route path="/offer/:id" element={<Offer />} />
+          <Route
+            path="/publish"
+            element={
+              <Publish
+                setLoginModal={setLoginModal}
+                loginModal={loginModal}
+                token={token}
+                setToken={setToken}
+              />
+            }
+          />
         </Routes>
         {signupModal && (
           <SignupModal

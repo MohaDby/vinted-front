@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import tear from "../assets/img/tear.88.svg";
 
 import axios from "axios";
 
-const Home = ({ heroImg }) => {
+const Home = ({ heroImg, token, setLoginModal }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +40,17 @@ const Home = ({ heroImg }) => {
           <img src={tear} alt="" className="hero-tear" />
           <div className="hero-div">
             <p>Prêts à faire du tri dans vos placards ?</p>
-            <button>Commencer a vendre</button>
+            <button
+              onClick={() => {
+                if (!token) {
+                  setLoginModal(true);
+                } else {
+                  navigate("/publish");
+                }
+              }}
+            >
+              Commencer a vendre
+            </button>
           </div>
         </div>
         <div className="container">

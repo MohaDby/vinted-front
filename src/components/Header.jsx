@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({
   logo,
@@ -9,6 +9,7 @@ const Header = ({
   signupModal,
   setSignupModal,
 }) => {
+  const navigate = useNavigate();
   return (
     <header>
       <div className="container">
@@ -53,7 +54,18 @@ const Header = ({
           </div>
         )}
 
-        <button className="sell-button">Vends tes articles</button>
+        <button
+          className="sell-button"
+          onClick={() => {
+            if (!token) {
+              setLoginModal(!loginModal);
+            } else {
+              navigate("/publish");
+            }
+          }}
+        >
+          Vends tes articles
+        </button>
       </div>
     </header>
   );

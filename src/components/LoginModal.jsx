@@ -75,7 +75,7 @@ const LoginModal = ({ setLoginModal, setSignupModal, handleToken }) => {
                 required
               />
               <input
-                type="text"
+                type="password"
                 placeholder="Mot de passe"
                 value={password}
                 onChange={handlePasswordChange}
