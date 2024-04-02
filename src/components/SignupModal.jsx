@@ -10,7 +10,6 @@ const SignupModal = ({ setSignupModal, handleToken, setLoginModal }) => {
     newsletter: false,
   });
   const [error, setError] = useState("");
-  const [pictureFromCloudinary, setPictureFromCloudinary] = useState();
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -59,8 +58,6 @@ const SignupModal = ({ setSignupModal, handleToken, setLoginModal }) => {
 
       console.log(response.data);
 
-      setPictureFromCloudinary(response.data.secure_url);
-
       handleToken(response.data.token);
 
       setSignupModal(false);
@@ -99,9 +96,7 @@ const SignupModal = ({ setSignupModal, handleToken, setLoginModal }) => {
         <div>
           <div className="signup-form">
             <h1>S'inscrire</h1>
-            {/* {pictureFromCloudinary && (
-              <img src={pictureFromCloudinary} alt="" />
-            )} */}
+
             <form onSubmit={handleSubmit}>
               <input
                 name="username"
@@ -111,9 +106,9 @@ const SignupModal = ({ setSignupModal, handleToken, setLoginModal }) => {
                 onChange={handleChange}
                 required
               />
-              <div {...getRootProps()}>
+              <div {...getRootProps()} className="add-avatar">
                 <input {...getInputProps()} />
-                <p>Ajouter avatar</p>
+                <p>Ajoute un avatar</p>
               </div>
               <input
                 name="email"

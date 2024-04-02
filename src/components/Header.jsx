@@ -8,8 +8,11 @@ const Header = ({
   setLoginModal,
   signupModal,
   setSignupModal,
+  setSearch,
+  search,
 }) => {
   const navigate = useNavigate();
+
   return (
     <header>
       <div className="container">
@@ -20,7 +23,11 @@ const Header = ({
           <input
             className="searchBar"
             type="text"
+            name={search}
             placeholder="Recherche des articles"
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
           />
         </div>
         {token ? (

@@ -11,7 +11,7 @@ header .container {
 
 header .searchBar {
   height: 35px;
-  width: 100%;
+  width: 100vw;
   max-width: 600px;
   background-color: #f5f6f7;
   border: none;

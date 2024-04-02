@@ -71,7 +71,7 @@ const Publish = ({ token, setLoginModal, loginModal }) => {
       );
       console.log(response.data);
       if (response.data._id) {
-        navigate(`/offer/${response.data._id}`);
+        navigate(`/offers/${response.data._id}`);
       }
     } catch (error) {
       console.log(error.response.data);

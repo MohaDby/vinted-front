@@ -17,6 +17,8 @@ function App() {
   const [loginModal, setLoginModal] = useState(false);
   const [signupModal, setSignupModal] = useState(false);
   const [token, setToken] = useState(Cookies.get("userToken") || null);
+  const [search, setSearch] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 100]);
 
   const handleToken = (token) => {
     if (token) {
@@ -38,11 +40,19 @@ function App() {
           setLoginModal={setLoginModal}
           signupModal={signupModal}
           setSignupModal={setSignupModal}
+          search={search}
+          setSearch={setSearch}
         />
         <Routes>
           <Route
             path="/"
-            element={<Home token={token} setLoginModal={setLoginModal} />}
+            element={
+              <Home
+                token={token}
+                setLoginModal={setLoginModal}
+                search={search}
+              />
+            }
           />
           <Route path="/offer/:id" element={<Offer />} />
           <Route

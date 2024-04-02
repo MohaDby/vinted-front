@@ -5,7 +5,7 @@ import heroImg from "../assets/img/heroImg.jpg";
 
 import axios from "axios";
 
-const Home = ({ token, setLoginModal }) => {
+const Home = ({ token, setLoginModal, search }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -17,7 +17,7 @@ const Home = ({ token, setLoginModal }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offers?page=${page}&limit=8`
+          `https://lereacteur-vinted-api.herokuapp.com/offers?page=${page}&limit=8&title=${search}`
         );
         setData(response.data.offers);
 
@@ -29,7 +29,7 @@ const Home = ({ token, setLoginModal }) => {
     };
 
     fetchData();
-  }, [page]);
+  }, [page, search]);
 
   return isLoading ? (
     <p>En cours de chargement....</p>

@@ -40,7 +40,6 @@ const CheckoutForm = ({ productName, productPrice }) => {
         }
       );
 
-      console.log("sa marche4");
       const clientSecret = response.data.client_secret;
 
       const { error, paymentIntent } = await stripe.confirmPayment({
