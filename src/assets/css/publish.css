@@ -1,0 +1,69 @@
+.main-publish {
+  background-color: #ebedee;
+  height: 100%;
+}
+
+.main-publish h1 {
+  font-size: 30px;
+  padding-top: 50px;
+  margin-bottom: 30px;
+}
+
+.main-publish .select-picture {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 2px gray;
+  margin-bottom: 40px;
+}
+
+.picture-zone {
+  border: 1px dashed #ebedee;
+  border-radius: 3px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.first-zone {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 2px gray;
+  margin-bottom: 40px;
+}
+
+.first-zone > div {
+  padding: 5px;
+}
+
+.second-zone {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 2px gray;
+  margin-bottom: 40px;
+}
+
+.third-zone {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 2px gray;
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-publish button {
+  background-color: #2cb1ba;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  height: 45px;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/img/logoVinted.png";
 
 const Header = ({
-  logo,
   token,
   handleToken,
   loginModal,

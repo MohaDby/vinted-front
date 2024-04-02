@@ -1,28 +1,27 @@
 import { useState } from "react";
-
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ setLoginModal, setSignupModal, handleToken }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+
   const [error, setError] = useState("");
 
-  const handleEmailChange = (event) => {
-    const value = event.target.value;
-    setEmail(value);
-  };
-  const handlePasswordChange = (event) => {
-    const value = event.target.value;
-    setPassword(value);
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const userData = {
-      email: email,
-      password: password,
-    };
 
     try {
       const response = await axios.post(
@@ -32,10 +31,13 @@ const LoginModal = ({ setLoginModal, setSignupModal, handleToken }) => {
       console.log(response.data);
       handleToken(response.data.token);
       setLoginModal(false);
+      navigate("/publish");
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 400) {
-        setError("Utilisateur introuvable");
+        setError("Utilisateur introuvable !");
+      } else if (error.response.status === 401) {
+        setError("Mot de passe incorrect !");
       }
     }
   };
@@ -66,19 +68,23 @@ const LoginModal = ({ setLoginModal, setSignupModal, handleToken }) => {
         <div>
           <div className="login-form">
             <h1>Se connecter</h1>
+
             <form onSubmit={handleSubmit}>
               <input
+                name="email"
                 type="email"
                 placeholder="Adresse Email"
-                value={email}
-                onChange={handleEmailChange}
+                value={userData.email}
+                onChange={handleChange}
                 required
               />
+
               <input
+                name="password"
                 type="password"
                 placeholder="Mot de passe"
-                value={password}
-                onChange={handlePasswordChange}
+                value={userData.password}
+                onChange={handleChange}
                 required
               />
               <input
@@ -97,7 +103,9 @@ const LoginModal = ({ setLoginModal, setSignupModal, handleToken }) => {
             >
               Pas encore de compte ? Inscris-toi !
             </p>
-            {error && <p>{error}</p>}
+            {error && (
+              <p style={{ color: "red", marginTop: "10px" }}>{error}</p>
+            )}
           </div>
         </div>
       </div>

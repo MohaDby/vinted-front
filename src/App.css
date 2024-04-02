@@ -3,6 +3,8 @@
 @import url("./assets/css/modal.css");
 @import url("./assets/css/home.css");
 @import url("./assets/css/offer.css");
+@import url("./assets/css/publish.css");
+@import url("./assets/css/payment.css");
 
 * {
   box-sizing: border-box;

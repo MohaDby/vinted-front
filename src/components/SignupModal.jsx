@@ -1,48 +1,65 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import axios from "axios";
 const SignupModal = ({ setSignupModal, handleToken, setLoginModal }) => {
-  const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [newsletter, setNewsletter] = useState(false);
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    avatar: null,
+    newsletter: false,
+  });
   const [error, setError] = useState("");
+  const [pictureFromCloudinary, setPictureFromCloudinary] = useState();
 
-  const handleUserChange = (event) => {
-    const value = event.target.value;
-    setUser(value);
-  };
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      avatar: file,
+    }));
+  }, []);
 
-  const handleEmailChange = (event) => {
-    const value = event.target.value;
-    setEmail(value);
-  };
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
 
-  const handlePasswordChange = (event) => {
-    const value = event.target.value;
-    setPassword(value);
-  };
-
-  const handleCheckboxChange = (event) => {
-    setNewsletter(event.target.checked);
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setUserData((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const userData = {
-      email: email,
-      username: user,
-      password: password,
-      newsletter: newsletter,
-    };
+    const formData = new FormData();
+    formData.append("username", userData.username);
+    formData.append("email", userData.email);
+    formData.append("password", userData.password);
+    formData.append("newsletter", userData.newsletter);
+
+    if (userData.avatar) {
+      formData.append("avatar", userData.avatar);
+    }
 
     try {
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-        userData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       console.log(response.data);
+
+      setPictureFromCloudinary(response.data.secure_url);
 
       handleToken(response.data.token);
 
@@ -82,35 +99,46 @@ const SignupModal = ({ setSignupModal, handleToken, setLoginModal }) => {
         <div>
           <div className="signup-form">
             <h1>S'inscrire</h1>
+            {/* {pictureFromCloudinary && (
+              <img src={pictureFromCloudinary} alt="" />
+            )} */}
             <form onSubmit={handleSubmit}>
               <input
+                name="username"
                 placeholder="Nom d'utilisateur"
                 type="text"
-                value={user}
-                onChange={handleUserChange}
+                value={userData.username}
+                onChange={handleChange}
                 required
               />
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Ajouter avatar</p>
+              </div>
               <input
+                name="email"
                 placeholder="Email"
                 type="email"
-                value={email}
-                onChange={handleEmailChange}
+                value={userData.email}
+                onChange={handleChange}
                 required
               />
               <input
+                name="password"
                 placeholder="Mot de passe"
                 type="password"
-                value={password}
-                onChange={handlePasswordChange}
+                value={userData.password}
+                onChange={handleChange}
                 required
               />
               <div className="checkbox">
                 <div>
                   <input
+                    name="newsletter"
                     className="checkbox-button"
                     type="checkbox"
-                    value={newsletter}
-                    onChange={handleCheckboxChange}
+                    value={userData.newsletter}
+                    onChange={handleChange}
                   />
                   <span>S'inscrire à notre newsletter</span>
                 </div>

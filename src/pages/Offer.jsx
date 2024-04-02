@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -31,8 +31,8 @@ const Offer = () => {
         <div className="offer">
           <img src={data.product_image.url} alt="" />
           <div className="offer-info">
-            <div>
-              <h2>{data.product_price}</h2>
+            <div className="first-section">
+              <h2>{data.product_price} €</h2>
               <ul>
                 {data.product_details.map((elem, index) => {
                   return (
@@ -44,15 +44,27 @@ const Offer = () => {
                 })}
               </ul>
             </div>
+            <div className="divider"></div>
             <div>
-              <h2>{data.product_name}</h2>
-              <p>{data.product_description}</p>
-              <div className="offer-user">
-                <img src={data.owner.account.avatar?.url} alt="" />
-                <span>{data.owner.account.username}</span>
+              <div className="second-section">
+                <h2>{data.product_name}</h2>
+                <p>{data.product_description}</p>
+                <div className="offer-user">
+                  <img src={data.owner.account.avatar?.url} alt="" />
+                  <span>{data.owner.account.username}</span>
+                </div>
               </div>
             </div>
-            <button>Acheter</button>
+            {console.log(data.product_name)}
+            <Link
+              to={"/payment"}
+              state={{
+                productName: data.product_name,
+                productPrice: data.product_price,
+              }}
+            >
+              <button>Acheter</button>
+            </Link>
           </div>
         </div>
       </div>

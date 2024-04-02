@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import tear from "../assets/img/tear.88.svg";
+import heroImg from "../assets/img/heroImg.jpg";
 
 import axios from "axios";
 
-const Home = ({ heroImg, token, setLoginModal }) => {
+const Home = ({ token, setLoginModal }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);

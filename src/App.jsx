@@ -3,12 +3,11 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 
 import "./App.css";
-import logo from "./assets/img/logoVinted.png";
-import heroImg from "./assets/img/heroImg.jpg";
 
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
 import Publish from "./pages/Publish";
+import Payment from "./pages/Payment";
 
 import Header from "./components/Header";
 import LoginModal from "./components/LoginModal";
@@ -33,7 +32,6 @@ function App() {
     <>
       <Router>
         <Header
-          logo={logo}
           token={token}
           handleToken={handleToken}
           loginModal={loginModal}
@@ -44,13 +42,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <Home
-                heroImg={heroImg}
-                token={token}
-                setLoginModal={setLoginModal}
-              />
-            }
+            element={<Home token={token} setLoginModal={setLoginModal} />}
           />
           <Route path="/offer/:id" element={<Offer />} />
           <Route
@@ -60,10 +52,10 @@ function App() {
                 setLoginModal={setLoginModal}
                 loginModal={loginModal}
                 token={token}
-                setToken={setToken}
               />
             }
           />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
         {signupModal && (
           <SignupModal

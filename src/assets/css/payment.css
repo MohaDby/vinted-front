@@ -1,0 +1,77 @@
+.main-payment {
+  background-color: #ebedee;
+  height: calc(100vh - 80px);
+}
+
+.main-payment .container {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-container {
+  margin-top: 40px;
+  width: 80%;
+  background-color: white;
+  padding: 40px;
+}
+
+.payment-container h3 {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 40px;
+}
+.first-section > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.second-section > div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.second-section > div p {
+  font-weight: 700;
+  color: black;
+}
+
+.second-section > div span {
+  font-weight: 700;
+  color: black;
+}
+
+.second-section {
+  margin-bottom: 20px;
+}
+
+.second-section p span {
+  color: black;
+}
+
+.second-section > p span {
+  font-weight: 700;
+}
+
+.payment {
+  margin-top: 30px;
+}
+
+.payment-submit {
+  margin-top: 30px;
+  width: 100%;
+  background-color: #00c06d;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.error-checkout {
+  color: red;
+  margin-top: 10px;
+}

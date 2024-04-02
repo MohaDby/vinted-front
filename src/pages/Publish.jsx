@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-// je dois gerer le cas ou quelqun tape l'url directement
-
-const Publish = ({ token }) => {
+const Publish = ({ token, setLoginModal, loginModal }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -15,7 +14,7 @@ const Publish = ({ token }) => {
     brand: "",
     size: "",
     color: "",
-    picture: null,
+    pictures: [],
   });
 
   const handleChange = (event) => {
@@ -27,10 +26,13 @@ const Publish = ({ token }) => {
   };
 
   const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
+    const previewPictures = acceptedFiles.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
     setFormData((prevFormData) => ({
       ...prevFormData,
-      picture: file,
+      pictures: prevFormData.pictures.concat(previewPictures),
     }));
   }, []);
 
@@ -39,16 +41,27 @@ const Publish = ({ token }) => {
     multiple: false,
   });
 
-  const [pictureFromCloudinary, setPictureFromCloudinary] = useState();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("condition", formData.condition);
+    formDataToSend.append("city", formData.city);
+    formDataToSend.append("brand", formData.brand);
+    formDataToSend.append("size", formData.size);
+    formDataToSend.append("color", formData.color);
+
+    for (let i = 0; i < formData.pictures.length; i++) {
+      formDataToSend.append("picture", formData.pictures[i].file);
+    }
 
     try {
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
-        formData,
+        formDataToSend,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,29 +70,48 @@ const Publish = ({ token }) => {
         }
       );
       console.log(response.data);
-      setPictureFromCloudinary(response.data.secure_url);
+      if (response.data._id) {
+        navigate(`/offer/${response.data._id}`);
+      }
     } catch (error) {
       console.log(error.response.data);
     }
   };
-  console.log(token);
+
   return !token ? (
-    <Navigate to={"/"} />
+    <>
+      <Navigate to={"/"} />
+      {setLoginModal(!loginModal)}
+    </>
   ) : (
-    <main>
+    <main className="main-publish">
       <div className="container">
         <div>
-          {pictureFromCloudinary && <img src={pictureFromCloudinary} alt="" />}
+          <h1>Vends ton article</h1>
+
           <form onSubmit={handleSubmit}>
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>
-                Glissez-déposez votre image ici, ou cliquez pour sélectionner un
-                fichier
-              </p>
+            <div className="select-picture">
+              <div {...getRootProps()} className="picture-zone">
+                <input {...getInputProps()} />
+                {formData.pictures && formData.pictures.length > 0 ? (
+                  formData.pictures.map((pictureObj, index) => (
+                    <img
+                      key={index}
+                      src={pictureObj.preview}
+                      alt=""
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                  ))
+                ) : (
+                  <p>
+                    Glissez-déposez votre image ici, ou cliquez pour
+                    sélectionner un fichier
+                  </p>
+                )}
+              </div>
             </div>
 
-            <div>
+            <div className="first-zone">
               <div>
                 <p>Titre</p>
                 <input
@@ -101,7 +133,7 @@ const Publish = ({ token }) => {
                 />
               </div>
             </div>
-            <div>
+            <div className="second-zone">
               <div>
                 <p>Marque</p>
                 <input
@@ -153,23 +185,24 @@ const Publish = ({ token }) => {
                   onChange={handleChange}
                 />
               </div>
-
+            </div>
+            <div className="third-zone">
+              <p>Prix</p>
+              <input
+                type="text"
+                name="price"
+                placeholder="0,00 €"
+                value={formData.price}
+                onChange={handleChange}
+              />
               <div>
-                <p>Prix</p>
-                <input
-                  type="text"
-                  name="price"
-                  placeholder="0,00 €"
-                  value={formData.price}
-                  onChange={handleChange}
-                />
-                <div>
-                  <input type="checkbox" />
-                  <p>je suis intéressé(e) par les échanges</p>
-                </div>
+                <input type="checkbox" />
+                <p>je suis intéressé(e) par les échanges</p>
               </div>
             </div>
-            <button type="submit">Ajouter</button>
+            <div className="add-button">
+              <button type="submit">Ajouter</button>
+            </div>
           </form>
         </div>
       </div>
